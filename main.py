@@ -39,7 +39,7 @@ def main():
 
     print('''BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//utgwkk//Blue Archive Birthday Calendar//EN''')
+PRODID:-//utgwkk//Blue Archive Birthday Calendar//JA''')
 
     for name, birthday_str in parsed:
         birthday = parse_birthday(birthday_str)
