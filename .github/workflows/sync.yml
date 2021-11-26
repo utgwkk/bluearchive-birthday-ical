@@ -1,0 +1,25 @@
+name: sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      
+      - uses: abatilo/actions-poetry@v2.0.0
+
+      - run: |
+          poetry run python main.py > birthday.ics
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update ics file
