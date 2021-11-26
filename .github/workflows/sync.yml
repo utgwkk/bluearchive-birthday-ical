@@ -1,4 +1,6 @@
 name: sync
+env:
+  TZ: Asia/Tokyo
 
 on:
   workflow_dispatch:
