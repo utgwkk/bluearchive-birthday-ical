@@ -14,11 +14,8 @@ def fetch_wiki_html() -> str:
 
 # [a, b, c, d, ... (even-sized)] -> [(a, b), (c, d), ...]
 def pairs(xs):
-    snd = lambda x: x[1]
-    evens = map(snd, filter(lambda x: x[0] % 2 == 0, enumerate(xs)))
-    odds = map(snd, filter(lambda x: x[0] % 2 == 1, enumerate(xs)))
-    for even, odd in zip(evens, odds):
-        yield even, odd
+    for i in range(len(xs) // 2):
+        yield tuple(xs[2*i:2*i+2])
 
 def parse_birthday(birthday_str: str) -> datetime:
     parsed = datetime.strptime(birthday_str, '%m/%d')
