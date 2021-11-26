@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//utgwkk//Blue Archive Birthday Calendar//EN
+PRODID:-//utgwkk//Blue Archive Birthday Calendar//JA
 BEGIN:VEVENT
 DTSTART;TZID=Asia/Tokyo:20210130T000000
 DTEND;TZID=Asia/Tokyo:20210131T000000
