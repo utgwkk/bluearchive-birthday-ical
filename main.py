@@ -13,7 +13,7 @@ def fetch_wiki_html() -> str:
     return resp.text
 
 # [a, b, c, d, ... (even-sized)] -> [(a, b), (c, d), ...]
-def pairwise(xs):
+def pairs(xs):
     snd = lambda x: x[1]
     evens = map(snd, filter(lambda x: x[0] % 2 == 0, enumerate(xs)))
     odds = map(snd, filter(lambda x: x[0] % 2 == 1, enumerate(xs)))
@@ -35,7 +35,7 @@ def main():
     table = selected_tags[0]
     tds = table.find_all('td')
     texts = [td.text for td in tds]
-    parsed = pairwise(texts)
+    parsed = pairs(texts)
 
     print('''BEGIN:VCALENDAR
 VERSION:2.0
