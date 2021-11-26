@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 from bs4 import BeautifulSoup
@@ -45,6 +45,7 @@ PRODID:-//utgwkk//Blue Archive Birthday Calendar//EN''')
         birthday = parse_birthday(birthday_str)
         print('BEGIN:VEVENT')
         print(f'DTSTART;TZID=Asia/Tokyo:{birthday.strftime("%Y%m%dT%H%M%S")}')
+        print(f'DTEND;TZID=Asia/Tokyo:{(birthday + timedelta(days=1)).strftime("%Y%m%dT%H%M%S")}')
         print('RRULE:FREQ=YEARLY;COUNT=100')
         print(f'SUMMARY:{name}')
         print('END:VEVENT')
