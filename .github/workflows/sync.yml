@@ -19,6 +19,8 @@ jobs:
       
       - uses: abatilo/actions-poetry@v2.0.0
 
+      - run: poetry install
+
       - run: |
           poetry run python main.py > birthday.ics
 
