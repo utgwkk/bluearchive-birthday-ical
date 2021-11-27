@@ -14,8 +14,8 @@ def fetch_wiki_html() -> str:
 
 # [a, b, c, d, ... (even-sized)] -> [(a, b), (c, d), ...]
 def pairs(xs):
-    for i in range(len(xs) // 2):
-        yield tuple(xs[2*i:2*i+2])
+    args = [iter(xs)] * 2
+    return zip(*args)
 
 def parse_birthday(birthday_str: str) -> datetime:
     parsed = datetime.strptime(birthday_str, '%m/%d')
