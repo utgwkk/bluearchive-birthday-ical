@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
+from icalendar.prop import vFrequency
 
 import requests
 from bs4 import BeautifulSoup
+from icalendar.cal import Calendar, Event
 
 USER_AGENT = 'bluearchive-birthday-ical (+https://github.com/utgwkk/bluearchive-birthday-ical)'
 SOURCE_URL = 'https://bluearchive.wikiru.jp/?SandBox/%E8%AA%95%E7%94%9F%E6%97%A5%E4%B8%80%E8%A6%A7'
@@ -34,20 +36,19 @@ def main():
     texts = [td.text for td in tds]
     parsed = pairs(texts)
 
-    print('''BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//utgwkk//Blue Archive Birthday Calendar//JA''')
+    calendar = Calendar()
+    calendar.add('prodid', '-//utgwkk//Blue Archive Birthday Calendar//JA')
 
     for name, birthday_str in parsed:
         birthday = parse_birthday(birthday_str)
-        print('BEGIN:VEVENT')
-        print(f'DTSTART;TZID=Asia/Tokyo:{birthday.strftime("%Y%m%dT%H%M%S")}')
-        print(f'DTEND;TZID=Asia/Tokyo:{(birthday + timedelta(days=1)).strftime("%Y%m%dT%H%M%S")}')
-        print('RRULE:FREQ=YEARLY;COUNT=100')
-        print(f'SUMMARY:{name}')
-        print('END:VEVENT')
+        event = Event()
+        event.add('summary', name)
+        event.add('dtstart', birthday)
+        event.add('dtend', birthday + timedelta(days=1))
+        event.add('rrule', vFrequency('yearly'))
+        calendar.add_component(event)
 
-    print('END:VCALENDAR')
+    print(calendar.to_ical().decode().strip())
 
 if __name__ == '__main__':
     main()
