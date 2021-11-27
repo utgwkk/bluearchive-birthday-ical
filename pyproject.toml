@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.8"
 bs4 = "^0.0.1"
 requests = "^2.26.0"
+icalendar = "^4.0.9"
 
 [tool.poetry.dev-dependencies]
 
