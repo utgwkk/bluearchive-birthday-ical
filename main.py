@@ -21,8 +21,8 @@ def pairs(xs):
 
 def parse_birthday(birthday_str: str) -> datetime:
     parsed = datetime.strptime(birthday_str, '%m/%d')
-    # XXX: 暫定的に2021年
-    return parsed.replace(year=2021)
+    # XXX: 暫定的に2022年
+    return parsed.replace(year=2022)
 
 def main():
     html = fetch_wiki_html()
