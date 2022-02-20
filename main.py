@@ -8,7 +8,7 @@ from icalendar.cal import Calendar, Event
 
 USER_AGENT = 'bluearchive-birthday-ical (+https://github.com/utgwkk/bluearchive-birthday-ical)'
 SOURCE_URL = 'https://bluearchive.wikiru.jp/?cmd=edit&page=MenuBar/%E8%AA%95%E7%94%9F%E6%97%A5%E4%B8%80%E8%A6%A7'
-SELECTOR = 'textarea[name="original"]'
+SELECTOR = 'textarea[name="msg"]'
 
 def fetch_wiki_html() -> str:
     resp = requests.get(SOURCE_URL, headers={'User-Agent': USER_AGENT})
