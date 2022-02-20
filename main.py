@@ -1,14 +1,13 @@
 from datetime import datetime, timedelta
 from icalendar.prop import vFrequency
-import re
 
 import requests
 from bs4 import BeautifulSoup
 from icalendar.cal import Calendar, Event
 
 USER_AGENT = 'bluearchive-birthday-ical (+https://github.com/utgwkk/bluearchive-birthday-ical)'
-SOURCE_URL = 'https://bluearchive.wikiru.jp/?cmd=edit&page=MenuBar/%E8%AA%95%E7%94%9F%E6%97%A5%E4%B8%80%E8%A6%A7'
-SELECTOR = 'textarea[name="msg"]'
+SOURCE_URL = 'https://bluearchive.wikiru.jp/?SandBox/%E8%AA%95%E7%94%9F%E6%97%A5%E4%B8%80%E8%A6%A7'
+SELECTOR = '#sortabletable1'
 
 def fetch_wiki_html() -> str:
     resp = requests.get(SOURCE_URL, headers={'User-Agent': USER_AGENT})
@@ -32,15 +31,10 @@ def main():
     if len(selected_tags) == 0:
         raise RuntimeError(f'element for {SELECTOR} not found')
 
-    parsed = []
-    textarea = selected_tags[0]
-    for line in textarea.text.splitlines():
-        m = re.match(r'\|\s*\[\[(.+)\]\]\s*\|\s*([0-9]{2}/[0-9]{2})\s*\|', line)
-        if not m:
-            continue
-        name = m.group(1)
-        birthday = m.group(2)
-        parsed.append((name, birthday))
+    table = selected_tags[0]
+    tds = table.find_all('td')
+    texts = [td.text for td in tds]
+    parsed = pairs(texts)
 
     calendar = Calendar()
     calendar.add('prodid', '-//utgwkk//Blue Archive Birthday Calendar//JA')
