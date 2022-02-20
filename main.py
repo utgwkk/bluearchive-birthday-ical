@@ -34,7 +34,8 @@ def main():
     table = selected_tags[0]
     tds = table.find_all('td')
     texts = [td.text for td in tds]
-    parsed = pairs(texts)
+    parsed = list(pairs(texts))
+    parsed.sort(key=lambda x: x[0])
 
     calendar = Calendar()
     calendar.add('prodid', '-//utgwkk//Blue Archive Birthday Calendar//JA')
