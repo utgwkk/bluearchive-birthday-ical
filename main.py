@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from icalendar.prop import vFrequency
 
 import requests
@@ -21,6 +21,7 @@ def pairs(xs):
 
 def parse_birthday(birthday_str: str) -> datetime:
     parsed = datetime.strptime(birthday_str, '%m/%d')
+    parsed = parsed.replace(tzinfo=timezone(timedelta(hours=9)))
     # XXX: 暫定的に2022年
     return parsed.replace(year=2022)
 
