@@ -38,10 +38,15 @@ def main():
     parsed = list(pairs(texts))
     parsed.sort(key=lambda x: x[0])
 
+    already_added = set()
+
     calendar = Calendar()
     calendar.add('prodid', '-//utgwkk//Blue Archive Birthday Calendar//JA')
 
     for name, birthday_str in parsed:
+        if name in already_added:
+            continue
+        already_added.add(name)
         birthday = parse_birthday(birthday_str)
         event = Event()
         event.add('summary', name)
