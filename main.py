@@ -34,7 +34,7 @@ def main():
 
     table = selected_tags[0]
     tds = table.find_all('td')
-    texts = [td.text for td in tds]
+    texts = [td.text for td in tds if td.text]
     parsed = list(pairs(texts))
     parsed.sort(key=lambda x: x[0])
 
