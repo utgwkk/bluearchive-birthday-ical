@@ -1,3 +1,4 @@
+import time
 from datetime import datetime, timedelta, timezone
 from icalendar.prop import vFrequency
 
@@ -9,10 +10,20 @@ USER_AGENT = 'bluearchive-birthday-ical (+https://github.com/utgwkk/bluearchive-
 SOURCE_URL = 'https://bluearchive.wikiru.jp/?MenuBar/%E8%AA%95%E7%94%9F%E6%97%A5%E4%B8%80%E8%A6%A7'
 SELECTOR = '#body'
 
+MAX_RETRIES = 5
+
 def fetch_wiki_html() -> str:
-    resp = requests.get(SOURCE_URL, headers={'User-Agent': USER_AGENT})
-    resp.raise_for_status()
-    return resp.text
+    last_exc = None
+    for attempt in range(MAX_RETRIES):
+        if attempt > 0:
+            time.sleep(2 ** (attempt - 1))
+        try:
+            resp = requests.get(SOURCE_URL, headers={'User-Agent': USER_AGENT})
+            resp.raise_for_status()
+            return resp.text
+        except requests.HTTPError as e:
+            last_exc = e
+    raise last_exc
 
 # [a, b, c, d, ... (even-sized)] -> [(a, b), (c, d), ...]
 def pairs(xs):
