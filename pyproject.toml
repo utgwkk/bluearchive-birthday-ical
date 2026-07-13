@@ -1,17 +1,15 @@
-[tool.poetry]
+[project]
 name = "bluearchive-birthday-ical"
 version = "0.1.0"
 description = ""
-authors = ["utgwkk <utagawakiki@gmail.com>"]
-license = "MIT"
-package-mode = false
+authors = [{ name = "utgwkk", email = "utagawakiki@gmail.com" }]
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = [
+    "bs4>=0.0.1",
+    "requests>=2.26.0,<3.0.0",
+    "icalendar>=4.0.9,<5.0.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-bs4 = "^0.0.1"
-requests = "^2.26.0"
-icalendar = "^4.0.9"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+package = false
